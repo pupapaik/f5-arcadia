@@ -5,15 +5,14 @@ apiVersion: v1
 kind: Service
 metadata:
   name: backend
-  namespace: arcadia-nodeport
   labels:
     app: arcadia-np-backend
     service: arcadeia-np-backend
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
   - port: 80
-    nodePort: 31584
+    targetPort: 8080
     name: arcadia-np-backend-80
   selector:
     app: arcadia-np-backend
@@ -22,10 +21,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: arcadia-np-backend
-  namespace: arcadia-nodeport
   labels:
     app: arcadia-np-backend
     version: v1
+  annotations:
+    ves.io/workload-flavor: medium
 spec:
   replicas: 1
   selector:
@@ -42,11 +42,11 @@ spec:
       - env:
         - name: service_name
           value: backend
-        image: registry.gitlab.com/arcadia-application/back-end/backend:latest
+        image: pupapaik/backend:latest
         imagePullPolicy: IfNotPresent
         name: arcadia-np-backend
         ports:
-        - containerPort: 80
+        - containerPort: 8080
           protocol: TCP
 ---
 ##################################################################################################
@@ -56,18 +56,16 @@ apiVersion: v1
 kind: Service
 metadata:
   name: arcadia-np-main
-  namespace: arcadia-nodeport
   labels:
     app: arcadia-np-main
     service: arcadia-np-main
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
   - name: arcadia-np-main-80
-    nodePort: 30511
     port: 80
     protocol: TCP
-    targetPort: 80
+    targetPort: 8080
   selector:
     app: arcadia-np-main
 ---
@@ -75,10 +73,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: arcadia-np-main
-  namespace: arcadia-nodeport
   labels:
     app: arcadia-np-main
     version: v1
+  annotations:
+    ves.io/workload-flavor: medium
 spec:
   replicas: 1
   selector:
@@ -95,11 +94,11 @@ spec:
       - env:
         - name: service_name
           value: arcadia-np-main
-        image: registry.gitlab.com/arcadia-application/main-app/mainapp:latest
+        image: pupapaik/main-app:latest
         imagePullPolicy: IfNotPresent
         name: arcadia-np-main
         ports:
-        - containerPort: 80
+        - containerPort: 8080
           protocol: TCP
 ---
 ##################################################################################################
@@ -109,16 +108,15 @@ apiVersion: v1
 kind: Service
 metadata:
   name: arcadia-np-app2
-  namespace: arcadia-nodeport
   labels:
     app: arcadia-np-app2
     service: arcadia-np-app2
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
   - port: 80
     name: arcadia-np-app2-80
-    nodePort: 30362
+    targetPort: 8080
   selector:
     app: arcadia-np-app2
 ---
@@ -126,10 +124,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: arcadia-np-app2
-  namespace: arcadia-nodeport
   labels:
     app: arcadia-np-app2
     version: v1
+  annotations:
+    ves.io/workload-flavor: medium
 spec:
   replicas: 1
   selector:
@@ -146,11 +145,11 @@ spec:
       - env:
         - name: service_name
           value: arcadia-np-app2
-        image: registry.gitlab.com/arcadia-application/app2/app2:latest
+        image: pupapaik/app2:latest
         imagePullPolicy: IfNotPresent
         name: arcadia-np-app2
         ports:
-        - containerPort: 80
+        - containerPort: 8080
           protocol: TCP
 ---
 ##################################################################################################
@@ -160,16 +159,15 @@ apiVersion: v1
 kind: Service
 metadata:
   name: arcadia-np-app3
-  namespace: arcadia-nodeport
   labels:
     app: arcadia-app3
     service: arcadia-np-app3
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
   - port: 80
     name: arcadia-np-app3-80
-    nodePort: 31662
+    targetPort: 8080
   selector:
     app: arcadia-np-app3
 ---
@@ -177,10 +175,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: arcadia-np-app3
-  namespace: arcadia-nodeport
   labels:
     app: arcadia-np-app3
     version: v1
+  annotations:
+    ves.io/workload-flavor: medium
 spec:
   replicas: 1
   selector:
@@ -197,10 +196,10 @@ spec:
       - env:
         - name: service_name
           value: arcadia-app3
-        image: registry.gitlab.com/arcadia-application/app3/app3:latest
+        image: pupapaik/app3:latest
         imagePullPolicy: IfNotPresent
         name: arcadia-np-app3
         ports:
-        - containerPort: 80
+        - containerPort: 8080
           protocol: TCP
 ---
