@@ -1,0 +1,60 @@
+metadata:
+  name: arcadia-demo
+  namespace: arcadia-unit
+  labels:
+    ves.io/app_type: arcadia-unit
+  annotations: {}
+  description: Arcadia Demo App
+  disable: false
+spec:
+  domains:
+    - arcadia-demo.acmecorp.prod.helloclouds.app
+  https_auto_cert:
+    http_redirect: true
+    add_hsts: true
+  advertise_on_public_default_vip: {}
+  default_route_pools: []
+  routes:
+    - simple_route:
+        http_method: ANY
+        path:
+          prefix: /app3
+        origin_pools:
+          - pool:
+              tenant: acmecorp-adluvegy
+              namespace: arcadia-unit
+              name: arcadia-app3
+            weight: 0
+        disable_host_rewrite: {}
+    - simple_route:
+        http_method: ANY
+        path:
+          prefix: /api
+        origin_pools:
+          - pool:
+              tenant: acmecorp-adluvegy
+              namespace: arcadia-unit
+              name: arcadia-app2
+            weight: 0
+        disable_host_rewrite: {}
+    - simple_route:
+        http_method: ANY
+        path:
+          prefix: /
+        origin_pools:
+          - pool:
+              tenant: acmecorp-adluvegy
+              namespace: arcadia-unit
+              name: arcadia-main
+            weight: 0
+        disable_host_rewrite: {}
+  cors_policy: null
+  disable_waf: {}
+  add_location: true
+  no_challenge: {}
+  more_option: null
+  user_identification: null
+  disable_rate_limit: {}
+  malicious_user_mitigation: null
+  waf_exclusion_rules: []
+
