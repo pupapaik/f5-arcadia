@@ -1,0 +1,14 @@
+metadata:
+  name: arcadia-cluster
+  namespace: arcadia-unit
+  labels: {}
+  annotations: {}
+  description: ""
+  disable: false
+spec:
+  vsite_refs:
+    - kind: virtual_site
+      uid: ""
+      tenant: acmecorp-adluvegy
+      namespace: shared
+      name: corp-branches

@@ -1,0 +1,25 @@
+metadata:
+  name: arcadia-app3
+  namespace: arcadia-unit
+  labels:
+    ves.io/app: arcadia-app3
+    ves.io/app_type: arcadia-unit
+  annotations: {}
+  description: Origin pool for k8s service arcadia-app3
+  disable: false
+spec:
+  origin_servers:
+    - k8s_service:
+        service_name: arcadia-app3.arcadia-unit
+        site_locator:
+          virtual_site:
+            tenant: acmecorp-adluvegy
+            namespace: shared
+            name: all-corp-branches
+        vk8s_networks: {}
+  no_tls: {}
+  port: 80
+  healthcheck: []
+  loadbalancer_algorithm: ROUND_ROBIN
+  endpoint_selection: LOCAL_PREFERRED
+
