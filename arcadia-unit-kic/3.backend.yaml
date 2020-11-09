@@ -42,7 +42,7 @@ spec:
       - env:
         - name: service_name
           value: backend
-        image: registry.f5-udf.com:5000/arcadia-backend:unit
+        image: docker.io/madhukar32/arcadia-backend:unit
         imagePullPolicy: Always
         name: arcadia-unit-backend
         ports:

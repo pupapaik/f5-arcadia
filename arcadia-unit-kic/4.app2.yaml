@@ -42,7 +42,7 @@ spec:
       - env:
         - name: service_name
           value: arcadia-unit-app2
-        image: registry.f5-udf.com:5000/arcadia-app2:unit
+        image: docker.io/madhukar32/arcadia-app2:unit
         imagePullPolicy: Always
         name: arcadia-unit-app2
         ports:
