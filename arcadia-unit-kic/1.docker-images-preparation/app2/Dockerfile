@@ -3,7 +3,7 @@ FROM nginx/unit:1.17.0-php7.3
 COPY config.json /docker-entrypoint.d/
 COPY api/ /www/api/
 
-RUN apt-get update && apt-get install -yq --no-install-recommends \
+RUN apt-get update && apt-get install -yq --no-install-recommends --fix-missing \
     curl \
     nano \
     php7.3-curl \
